@@ -43,4 +43,4 @@ for u, v, d in G.edges(data=True):
     net.add_edge(u, v, width=d['weight'], title=f"Weight: {d['weight']}")
 
 # Exibir o grafo interativo
-net.show('grafo_interativo.html')
+net.show('grafos/grafo_transporte.html')
