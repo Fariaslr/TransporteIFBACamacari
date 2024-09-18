@@ -11,9 +11,9 @@ def grafo_cidades_auxilio(df):
 
         if cidade and pd.notna(auxilio):
             if not G.has_node(cidade):
-                G.add_node(cidade, node_type='cidade')
+                G.add_node(cidade, node_type='cidade', frequency=0)
             if not G.has_node(auxilio):
-                G.add_node(auxilio, node_type='auxilio')
+                G.add_node(auxilio, node_type='auxilio', frequency=0)
 
             # Ajustar o direcionamento das arestas para que auxilio aponte para cidade
             if G.has_edge(auxilio, cidade):
@@ -21,6 +21,10 @@ def grafo_cidades_auxilio(df):
             else:
                 G.add_edge(auxilio, cidade, weight=1)
 
+            G.nodes[cidade]['frequency'] += 1
+            G.nodes[auxilio]['frequency'] += 1
+
     return G
+
 
 
