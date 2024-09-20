@@ -3,7 +3,7 @@ import pandas as pd
 
 # Função para gerar o grafo de cidades conectadas a meios de transporte
 def grafo_cidades_transporte(df):
-    G = nx.DiGraph()  # Usar grafo direcionado
+    G = nx.Graph()  # Usar grafo não direcionado
 
     for index, row in df.iterrows():
         cidade = row['🏠 De qual cidade/distrito você sai para chegar ao campus?']
@@ -27,4 +27,5 @@ def grafo_cidades_transporte(df):
                 G.nodes[transporte]['frequency'] += 1
 
     return G
+
 

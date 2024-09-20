@@ -7,19 +7,15 @@ from transporte import grafo_cidades_transporte
 df = pd.read_excel('Dados sobre transporte para o campus Camaçari (respostas).xlsx')
 
 def gerar_grafo_interativo_combinado(G1, G2, G3, titulo, arquivo_html):
-    net = Network(height='750px', width='100%', bgcolor='#ffffff', font_color='black', directed=True)
+    net = Network(height='750px', width='100%', bgcolor='#ffffff', font_color='black', directed=False)
     net.set_edge_smooth('dynamic')
 
     def get_node_size(frequency):
-        # Ajuste o tamanho dos nós conforme necessário
         return max(15, frequency * 2)
 
     # Adicionar nós e arestas do Grafo 1
     for node in G1.nodes:
-        if G1.nodes[node].get('node_type') == 'campus':
-            color = 'lightgreen'
-        else:
-            color = 'lightblue'
+        color = 'lightgreen' if G1.nodes[node].get('node_type') == 'campus' else 'lightblue'
         size = get_node_size(G1.nodes[node].get('frequency', 1))
         net.add_node(node, label=node, title=node, color=color, size=size)
 
@@ -29,10 +25,7 @@ def gerar_grafo_interativo_combinado(G1, G2, G3, titulo, arquivo_html):
     # Adicionar nós e arestas do Grafo 2
     for node in G2.nodes:
         if node not in net.nodes:
-            if G2.nodes[node].get('node_type') == 'transporte':
-                color = 'orange'
-            else:
-                color = 'lightblue'
+            color = 'orange' if G2.nodes[node].get('node_type') == 'transporte' else 'lightblue'
             size = get_node_size(G2.nodes[node].get('frequency', 1))
             net.add_node(node, label=node, title=node, color=color, size=size)
 
@@ -42,14 +35,15 @@ def gerar_grafo_interativo_combinado(G1, G2, G3, titulo, arquivo_html):
     # Adicionar nós e arestas do Grafo 3
     for node in G3.nodes:
         if node not in net.nodes:
-            if G3.nodes[node].get('node_type') == 'auxilio':
-                color = 'brown'
-            elif G3.nodes[node].get('node_type') == 'Não':
-                color = 'red'
-            elif G3.nodes[node].get('node_type') == 'Sim':
-                color = 'green'
+            node_type = G3.nodes[node].get('node_type', '')
+            if node == 'Sim':
+                color = 'brown'  # Sim
+            elif node == 'Não':
+                color = 'SlateBlue'  # Não
+            elif node_type == 'cidade':
+                color = 'lightblue'  # Cidades
             else:
-                color = 'lightblue'
+                color = 'lightblue'  # Cor padrão
             size = get_node_size(G3.nodes[node].get('frequency', 1))
             net.add_node(node, label=node, title=node, color=color, size=size)
 
@@ -75,9 +69,10 @@ def adicionar_legenda_ao_html(arquivo_html):
         <h3>Legenda</h3>
         <ul style="list-style-type: none; padding: 0;">
             <li><span style="display: inline-block; width: 15px; height: 15px; background: lightgreen; border-radius: 50%; margin-right: 5px;"></span> IFBA</li>
-            <li><span style="display: inline-block; width: 15px; height: 15px; background: lightblue; border-radius: 50%; margin-right: 5px;"></span> Minicípios</li>
+            <li><span style="display: inline-block; width: 15px; height: 15px; background: lightblue; border-radius: 50%; margin-right: 5px;"></span> Municípios</li>
             <li><span style="display: inline-block; width: 15px; height: 15px; background: orange; border-radius: 50%; margin-right: 5px;"></span> Meios de transporte</li>
-            <li><span style="display: inline-block; width: 15px; height: 15px; background: brown; border-radius: 50%; margin-right: 5px;"></span> Auxílio transporte</li>
+            <li><span style="display: inline-block; width: 15px; height: 15px; background: brown; border-radius: 50%; margin-right: 5px;"></span> Com Auxílio transporte</li>
+            <li><span style="display: inline-block; width: 15px; height: 15px; background: SlateBlue; border-radius: 50%; margin-right: 5px;"></span> Sem Auxílio transporte</li>
         </ul>
     </div>
     """
@@ -95,6 +90,7 @@ def adicionar_legenda_ao_html(arquivo_html):
 
 # Executar a geração dos grafos e o HTML combinado
 if __name__ == '__main__':
+    df = pd.read_excel('Dados sobre transporte para o campus Camaçari (respostas).xlsx')
     G1 = grafo_cidades_campus(df)
     G2 = grafo_cidades_transporte(df)
     G3 = grafo_cidades_auxilio(df)
