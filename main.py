@@ -94,5 +94,4 @@ if __name__ == '__main__':
     G1 = grafo_cidades_campus(df)
     G2 = grafo_cidades_transporte(df)
     G3 = grafo_cidades_auxilio(df)
-    adicionar_legenda_ao_html('paginas/index.html')
-    gerar_grafo_interativo_combinado(G1, G2, G3, 'Grafo de Conexões ao Campus', 'paginas/index.html')
+    gerar_grafo_interativo_combinado(G1, G2, G3, 'Grafo de Conexões ao Campus', 'index.html')
