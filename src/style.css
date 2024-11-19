@@ -1,0 +1,62 @@
+body {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    margin: 0; 
+    background-color: #0e2c33 !important;
+    width: 100%; 
+}
+
+.card {
+    width: 90%; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative; 
+    background-color: #1f1919; 
+    border-radius: 15px; 
+    overflow: hidden; 
+}
+
+.card-body {
+    height: 90vh; 
+    padding: 20px; 
+    overflow: auto; 
+    background-color: rgb(253, 253, 253);
+}
+
+.legend {
+    position: absolute; /* Para que a legenda fique posicionada em relação ao card */
+    top: 20px; /* Ajuste conforme necessário */
+    right: 20px; /* Ajuste conforme necessário */
+    background: white; /* Fundo branco */
+    border: 1px solid #ccc; /* Borda cinza */
+    padding: 10px; /* Espaçamento interno */
+    border-radius: 5px; /* Cantos arredondados */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra */
+    z-index: 10; /* Para que fique acima de outros elementos */
+}
+
+.legend h3 {
+    margin: 0 0 10px; /* Espaçamento do título da legenda */
+    font-size: 1.2em; /* Tamanho da fonte do título */
+}
+
+.legend ul {
+    list-style-type: none; /* Remove os marcadores da lista */
+    padding: 0; /* Remove o padding padrão */
+    margin: 0; /* Remove a margem padrão */
+}
+
+.legend li {
+    display: flex; /* Para alinhar o símbolo e o texto na mesma linha */
+    align-items: center; /* Alinha verticalmente o texto com o símbolo */
+    margin-bottom: 5px; /* Espaçamento entre os itens da legenda */
+}
+
+.legend span {
+    display: inline-block; /* Mantém o símbolo na mesma linha */
+    width: 15px; /* Largura do símbolo */
+    height: 15px; /* Altura do símbolo */
+    border-radius: 50%; /* Faz o símbolo ser redondo */
+    margin-right: 5px; /* Espaçamento à direita do símbolo */
+}

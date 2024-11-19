@@ -1,9 +1,9 @@
 import networkx as nx
 import pandas as pd
 
-# Função para gerar o grafo de cidades conectadas ao campus
+
 def grafo_cidades_campus(df):
-    G = nx.Graph()  # Usar grafo direcionado
+    G = nx.Graph()
     campus = 'Campus IFBA Camaçari'
 
     for index, row in df.iterrows():
